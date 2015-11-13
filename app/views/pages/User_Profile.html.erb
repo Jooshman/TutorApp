@@ -48,17 +48,17 @@
 </p>
 
 <p>
-  <string>Skills:</strong>
+  <strong>Skills:</strong>
   <%= @userprofile.skills %>
 </p>
 
 <p>
-	<string>Prices:</strong>
+	<strong>Prices:</strong>
 	<%= @userprofile.price %>
 </p>
 
 <p>
-	<string>Ratings:</strong>
+	<strong>Ratings:</strong>
   		<div>
     		<%= imdb_style_rating_for @userprofile, current_userlogin%>
   		</div>
@@ -118,10 +118,11 @@
 
 </p>
 
-<p>
-	<string>Reviews:</strong>
-	<%= @userprofile.reviews %>
-</p>
-
-
+  <p>
+    <strong>Reviews:</strong>
+      <% @rev.each do |r| %>
+        <%= r[:review] %>
+      <% end %>
+  </p>
+</div>
 

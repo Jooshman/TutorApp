@@ -4,7 +4,6 @@ class ApplicationController < ActionController::Base
   def current_user
   	current_userlogin
   end
-
   helper_method :current_user
   helper_method :mailbox, :conversation
 
