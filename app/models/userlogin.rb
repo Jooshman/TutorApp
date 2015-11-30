@@ -21,6 +21,9 @@ end
   
   acts_as_messageable
 
+has_many :userreviews
+
+
   def mailboxer_name
     self.first
   end

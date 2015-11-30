@@ -146,15 +146,20 @@
           </div>
         </div>
     		<% end %>
+<% if @userprofile.isTutor? %>
+<h3>Reviews</h3>
+<% @userreviews.each do |r| %>
+  <div>
+    <strong><%= r.name %></strong>
+    <br />
+    <p><%= r.body %></p> 
+    <p><%= link_to 'Delete', userreview_path(r), method: :delete, data: { confirm: 'Are you sure?' } %></p>
+  </div>
+<% end %>
+<%= render 'userreviews/form' %>
+<% end %>
 
 
-
-
-
-<p>
-	<string>Reviews:</strong>
-	<%= @userprofile.reviews %>
-</p>
 
 
 

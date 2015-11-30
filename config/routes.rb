@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :userreviews
   #devise_for :userlogins, :controllers => {:registrations => "registrations"}
   devise_for :userlogins, :controllers => {:userlogins => "userlogins"} do
    # collection do

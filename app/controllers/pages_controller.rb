@@ -16,5 +16,7 @@ class PagesController < ApplicationController
 
   def User_Profile
       @userprofile = Userlogin.find(params[:id])
+      @userreviews = @userprofile.userreviews.all
+      @userreview = @userprofile.userreviews.build
   end
 end
