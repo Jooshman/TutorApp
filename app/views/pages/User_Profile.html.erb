@@ -31,7 +31,7 @@
                 <li class="list-group-item text-right"><span class="pull-left"><strong class="">Last seen</strong></span> Yesterday</li>
                 <li class="list-group-item text-right"><span class="pull-left"><strong class="">Gender</strong></span><% if @userprofile.gender.blank? %>Not given<% end %>
                   <%= @userprofile.gender %></li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Age </strong></span><% if @userprofile.birthday.blank? %>Infinity<% end %><%= @userprofile.birthday %></li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Age </strong></span><% if @userprofile.birthday.blank? %>Infinity<% end %><%= @userprofile.calculate_age(@userprofile.birthday) %></li>
             </ul>
 
             <% if @userprofile.isTutor? %>
