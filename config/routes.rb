@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   
   resources :userreviews
   #devise_for :sessions, :controllers => {:sessions => "sessions"}
-  devise_for :userlogins, :controllers => {:userlogins => "userlogins", :sessions => "sessions"} do
+  devise_for :userlogins, :controllers => {:userlogins => "userlogins", :sessions => "sessions", :registrations => "registrations"} do
    # collection do
    #   get 'search'
    # end

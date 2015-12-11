@@ -25,6 +25,9 @@ start search on ubuntu with command: sudo /etc/init.d/elasticsearch start -->
           You will be able to apply filters to narrow your search <br>
           <b>[] rating  [] age   [] gender   [] price</b><br>
           (what do we mean by class? You search via class...)
+
+          <input type="checkbox" id="male"> Male
+          <input type="checkbox" id="female"> Female
         </div>
       </div>
 
@@ -41,6 +44,11 @@ start search on ubuntu with command: sudo /etc/init.d/elasticsearch start -->
       - add first name last name to the signup page
       - edit the way we input price for the user profile
       -->
+
+
+      <!-- make if statements for the checkboxes, set ruby varaibles accordingly -->
+
+
       <% @userlogins.each do |userlogin| %>
         <!-- A container for each search result -->
         <%# if userlogin.isTutor? %>

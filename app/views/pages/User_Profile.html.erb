@@ -1,21 +1,5 @@
 <head>
-<%= csrf_meta_tag %>
-</head>
-<% content_for :javascript_includes do %>
-  <%= javascript_include_tag 'jquery.raty.js','ratyrate.js'%>
-<% end %> 
-
-  <script>
-    $(document).ready(function(){
-        $('[data-toggle="popover"]').popover(); 
-        $("#selector").select2();
-    });
-
-    $('#messageModal').on('shown.bs.modal', function () {
-      $('#messageModal').focus()
-    });
-  </script>
-
+  <%= csrf_meta_tag %>
   <style>
     .button_to {
       display: inline;
@@ -25,26 +9,41 @@
       display: inline;
     }
   </style>
+</head>
+
 <% if @userprofile.isTutor? %>
-<div class="container target">
+  <div class="container target">
+    <!-- This row is for the name, buttons, and profile image -->
     <div class="row">
+        
+        <!-- These cols contains: Name and buttons for messaging and favorites-->
         <div class="col-sm-10">
-             <h1 style="text-transform:capitalize;" class=""><% if @userprofile.first.blank? && @userprofile.last.blank?%>Nicolas Cage<% end %><%= @userprofile.first %> <%= @userprofile.last %></h1>
-             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#messageModal">Send me a message</button>
-            <% if current_userlogin.present? then %>
+          
+          <!-- Full name, if their name is blank, Nicolas Cage is the default -->
+          <h1 style="text-transform:capitalize;"><% if @userprofile.first.blank? && @userprofile.last.blank?%>Nicolas Cage<% end %><%= @userprofile.first %> <%= @userprofile.last %>
+          </h1>
+          
+          <!-- Send this tutor a message -->
+          <button type="button" class="btn btn-info" data-toggle="modal" data-target="#messageModal">Send me a message</button>
+           
+          <!-- Add this tutor to your favorites --> 
+          <% if current_userlogin.present? then %>
               <%- unless current_userlogin.favorite_userlogins.exists?(id: @userprofile.id) -%>
               <%= button_to 'Favorite Tutor', favorite_userlogins_path(userlogin_id: @userprofile.id), class: "btn btn-success", method: :post %>
               <%- else -%>
               <%= button_to 'Unfavorite', favorite_userlogin_path(id: @userprofile.id), class: "btn btn-success", method: :delete %>
               <%- end -%>
-            <% end %>
+          <% end %>
         </div>
+
 
         <div class="col-sm-2"><img title="profile image" class="img-rounded img-responsive pull-right" src="<%= @userprofile.avatar.url(:medium) %>">
-        </div>
 
+        </div>
     </div>
+
     <br>
+
     <div class="row">
         <div class="col-sm-3">
             <!--left col-->
@@ -73,7 +72,7 @@
             <% if @userprofile != current_userlogin then %>
               <ul class="list-group">
                   <li class="list-group-item text-muted">Ratings</li>
-                  <li class="list-group-item text-right"><span class="pull-left"><strong class="">Clarity </strong><span class="glyphicon glyphicon-info-sign"></span></span>
+                  <li class="list-group-item text-right"><span class="pull-left"><strong>Clarity </strong><span class="glyphicon glyphicon-info-sign"></span></span>
                     
                     <%= rating_for @userprofile, "clarity", disable_after_rate: false, 
                     imdb_avg: true,
@@ -81,19 +80,19 @@
                     cancel_on: "blank.jpg" %>
 
                   </li>
-                  <li class="list-group-item text-right"><span class="pull-left"><strong class="">Knowledge </strong><span class="glyphicon glyphicon-info-sign"></span></span> 
+                  <li class="list-group-item text-right"><span class="pull-left"><strong>Knowledge </strong><span class="glyphicon glyphicon-info-sign"></span></span>
 
                     <%= rating_for @userprofile, "knowledge", disable_after_rate: false, 
                     imdb_avg: true,
                     cancel_off: "blank.jpg",
                     cancel_on: "blank.jpg" %></li>
-                  <li class="list-group-item text-right"><span class="pull-left"><strong class="">Politeness </strong><span class="glyphicon glyphicon-info-sign"></span></span> 
+                  <li class="list-group-item text-right"><span class="pull-left"><strong>Politeness </strong><span class="glyphicon glyphicon-info-sign"></span></span> 
 
                     <%= rating_for @userprofile, "politeness", disable_after_rate: false, 
                     imdb_avg: true,
                     cancel_off: "blank.jpg",
                     cancel_on: "blank.jpg" %></li>
-                  <li class="list-group-item text-right"><span class="pull-left"><strong class="">Flexibility </strong><span class="glyphicon glyphicon-info-sign"></span></span> 
+                  <li class="list-group-item text-right"><span class="pull-left"><strong>Flexibility </strong><span class="glyphicon glyphicon-info-sign"></span></span> 
 
                     <%= rating_for @userprofile, "flexibility", disable_after_rate: false, 
                     imdb_avg: true,
@@ -103,7 +102,7 @@
               <% else %>
                     <ul class="list-group">
                   <li class="list-group-item text-muted">Ratings</li>
-                  <li class="list-group-item text-right"><span class="pull-left"><strong class="">Clarity </strong><span class="glyphicon glyphicon-info-sign"></span></span>
+                  <li class="list-group-item text-right"><span class="pull-left"><strong>Clarity </strong><span class="glyphicon glyphicon-info-sign"></span></span>
                     <div style="pointer-events: none;">                    
                     <%= rating_for @userprofile, "clarity", disable_after_rate: false, 
                     imdb_avg: true,
@@ -111,7 +110,7 @@
                     cancel_on: "blank.jpg" %>
                     </div>
                   </li>
-                  <li class="list-group-item text-right"><span class="pull-left"><strong class="">Knowledge </strong><span class="glyphicon glyphicon-info-sign"></span></span> 
+                  <li class="list-group-item text-right"><span class="pull-left"><strong>Knowledge </strong><span class="glyphicon glyphicon-info-sign"></span></span> 
                     <div style="pointer-events: none;">
                     <%= rating_for @userprofile, "knowledge", disable_after_rate: false, 
                     imdb_avg: true,
@@ -119,7 +118,7 @@
                     cancel_on: "blank.jpg" %>
                     </div>
                   </li>
-                  <li class="list-group-item text-right"><span class="pull-left"><strong class="">Politeness </strong><span class="glyphicon glyphicon-info-sign"></span></span>
+                  <li class="list-group-item text-right"><span class="pull-left"><strong>Politeness </strong><span class="glyphicon glyphicon-info-sign"></span></span>
                     <div style="pointer-events: none;">
                     <%= rating_for @userprofile, "politeness", disable_after_rate: false, 
                     imdb_avg: true,
@@ -127,7 +126,7 @@
                     cancel_on: "blank.jpg" %>
                     </div>
                   </li>
-                  <li class="list-group-item text-right"><span class="pull-left"><strong class="">Flexibility </strong><span class="glyphicon glyphicon-info-sign"></span></span>
+                  <li class="list-group-item text-right"><span class="pull-left"><strong>Flexibility </strong><span class="glyphicon glyphicon-info-sign"></span></span>
                     <div style="pointer-events: none;">
                     <%= rating_for @userprofile, "flexibility", disable_after_rate: false, 
                     imdb_avg: true,
@@ -198,15 +197,16 @@
             </div>
           </div>
         <% end %>
-      </div>
+</div>
 
-      <div class="modal fade" id="messageModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h2 class="modal-title">Send <% if @userprofile.first.blank? && @userprofile.last.blank?%>Nicolas Cage<% end %><%= @userprofile.first %> <%= @userprofile.last %> a message</h2>
-            </div>
+  <div class="modal fade" id="messageModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h2 class="modal-title">Send <% if @userprofile.first.blank? && @userprofile.last.blank?%>Nicolas Cage<% end %><%= @userprofile.first %> <%= @userprofile.last %> a message</h2>
+        </div>
+
 
             <div class="modal-body">
               <%= form_for :conversation, url: :conversations, html: { class: "" } do |f| %>    
@@ -225,11 +225,36 @@
                 </div>   
                 <%= f.submit "Send Message", class: "btn btn-success" %>   
               <% end %>
+
             </div>
-          </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-      </div><!-- /.modal -->
+            <div class="form-group">   
+              <%= f.label :subject %>    
+              <%= f.text_field :subject, placeholder: "I'd like you to tutor me!", class: "form-control" %>    
+            </div>   
+            <div class="form-group">   
+              <%= f.label :message %>    
+              <%= f.text_area :body, class: 'form-control',placeholder: "I need help with this class, this class, and this class. When would you be free to help?", rows: 4  %>    
+            </div>   
+            <%= f.submit "Send Message", class: "btn btn-success" %>   
+          <% end %>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
 <% else %>
 <%=redTo404 %>
 <% end %>
 
+<% content_for :javascript_includes do %>
+  <%= javascript_include_tag 'jquery.raty.js','ratyrate.js'%>
+<% end %> 
+  <script>
+    $(document).ready(function(){
+        $('[data-toggle="popover"]').popover(); 
+        $("#selector").select2();
+    });
+
+    $('#messageModal').on('shown.bs.modal', function () {
+      $('#messageModal').focus()
+    });
+  </script>

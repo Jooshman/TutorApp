@@ -182,7 +182,7 @@
     <% end %>
 
     <div class="form-group">
-      <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+      <%= f.label :password %> <i>(leave blank if you don't want to change it!!)</i><br />
       <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
     </div>
 
@@ -227,8 +227,10 @@
       <%= f.text_field :classes, autocomplete: "off", class: "form-control" %>
     </div>
     <div class="form-group">
-      <%= f.label :price %><span style="margin-left: 8px">($/hr)</span><br/>
+      <%= f.label :price %><span style="margin-left: 8px">($/hr)</span>
+      <span class="input-group-addon">$</span>
       <%= f.text_field :price, placeholder: 'Enter just a number (ex. 20, 30, 45, etc...)', autocomplete: "off", class: "form-control" %>
+      <span class="input-group-addon">/hr</span>
     </div>
     <div class="form-group">
       <%= f.label :skills %><br />

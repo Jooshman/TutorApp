@@ -23,4 +23,8 @@ class RegistrationsController < Devise::RegistrationsController
 	def update
 		super
 	end
+
+	def after_update_path_for(resource)
+      "/pages/User_Profile/" + resource.id.to_s
+    end
 end
