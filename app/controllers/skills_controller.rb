@@ -1,14 +1,7 @@
-require 'csv'
 class SkillsController < ApplicationController
   before_action :set_skill, only: [:show, :edit, :update, :destroy]
   
-  if Skill.count.zero?
-    csv_text = File.read('SkillsList.csv')
-    csv = CSV.parse(csv_text, :headers => true)
-    csv.each do |row|
-      Skill.create!(row.to_hash)
-    end
-  end
+ 
 
   # GET /skills
   # GET /skills.json

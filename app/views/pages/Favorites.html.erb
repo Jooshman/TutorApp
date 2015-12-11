@@ -33,6 +33,7 @@ http://railscasts.com/episodes/382-tagging?autoplay=true
   p {
     display: inline;
   }
+  
 </style>
 
 
@@ -62,43 +63,44 @@ http://railscasts.com/episodes/382-tagging?autoplay=true
     
   </script>
 
-
-<div class="panel panel-default">
-  <div class="row"> 
-    <% if current_userlogin.favorites.empty? then %> <!-- NO FAVORITES -->
-    <div class="col-lg-12">
-      <div class="jumbotron">
-      <h1>No favorites yet!</h1>
-      <span style="display:inline;"> <p style="display:inline">Head over to a Tutor you like and click the </p> <button type="button" class="btn btn-success">"Favorite Tutor"</button> <p style="display:inline"> next to their name.</p></span>
+<div class="container">
+  <div class="panel panel-default">
+    <div class="row"> 
+      <% if current_userlogin.favorites.empty? then %> <!-- NO FAVORITES -->
+      <div class="col-lg-12">
+        <div class="jumbotron">
+        <h1>No favorites yet!</h1>
+        <span style="display:inline;"> <p style="display:inline">Head over to a Tutor you like and click the </p> <button type="button" class="btn btn-success">"Favorite Tutor"</button> <p style="display:inline"> next to their name.</p></span>
+        </div>
       </div>
-    </div>
-    <% end %>
-    <%  current_userlogin.favorites.each do |u| %>
-            <!-- A container for each search result -->
-            <% fav = Userlogin.find(u.favorited_id)%>
-             <%# if userlogin.isTutor? %>
-              <div class="col-md-4">
-                <div class="thumbnail">
-                  <a href="../pages/User_Profile/<%= fav.id %>"><img title="profile image" class="img-rounded img-responsive" src="<%= fav.avatar.url(:medium) %>"></a>
-                  <div class="caption">
-                    <div class="row">
-                      <h2>
-                        <% if fav.first? || fav.last? then %>
-                          <div class="col-xs-6" style="font-size:xx-large; text-align: center;"><b><%= fav.first %> <%= fav.last %></b></div>
-                        <% else %> 
-                          <div class="col-xs-6" style="font-size:xx-large; text-align: center;"><b>Name n/a</b></div>
-                        <% end %>
-                      </h2>
-                      <p> <%#= button_to 'Send Message', type="button", class="btn btn-info", data-toggle="modal", data-target="#messageModal",params: {email: fav.email, fav_id: fav.id, fav_first: fav.first, fav_last: fav.last} %> 
-                        <button type="button" onclick="getFavInfo(this)" class="btn btn-info" data-fav-email="<%= fav.email %>" data-fav-id ="<%= fav.id %>" data-fav-last="<% if fav.last.blank? then %>Last<% else %><%= fav.last %><% end %>" data-fav-first="<% if fav.first.blank? then %>First<% else %><%= fav.first %><% end %>" data-toggle="modal" data-target="#messageModal">Send a message</button>
-                        <%= button_to 'Unfavorite', favorite_userlogin_path(id: u.favorited_id), class: "btn btn-success", method: :delete %></p>
+      <% end %>
+      <%  current_userlogin.favorites.each do |u| %>
+              <!-- A container for each search result -->
+              <% fav = Userlogin.find(u.favorited_id)%>
+               <%# if userlogin.isTutor? %>
+                <div class="col-md-4">
+                  <div class="thumbnail">
+                    <a href="../pages/User_Profile/<%= fav.id %>"><img title="profile image" class="img-rounded img-responsive" src="<%= fav.avatar.url(:medium) %>"></a>
+                    <div class="caption">
+                      <div class="row">
+                        <h2>
+                          <% if fav.first? || fav.last? then %>
+                            <div class="col-xs-6" style="font-size:xx-large; text-align: center;"><b><%= fav.first %> <%= fav.last %></b></div>
+                          <% else %> 
+                            <div class="col-xs-6" style="font-size:xx-large; text-align: center;"><b>Name n/a</b></div>
+                          <% end %>
+                        </h2>
+                        <p> <%#= button_to 'Send Message', type="button", class="btn btn-info", data-toggle="modal", data-target="#messageModal",params: {email: fav.email, fav_id: fav.id, fav_first: fav.first, fav_last: fav.last} %> 
+                          <button type="button" onclick="getFavInfo(this)" class="btn btn-info" data-fav-email="<%= fav.email %>" data-fav-id ="<%= fav.id %>" data-fav-last="<% if fav.last.blank? then %>Last<% else %><%= fav.last %><% end %>" data-fav-first="<% if fav.first.blank? then %>First<% else %><%= fav.first %><% end %>" data-toggle="modal" data-target="#messageModal">Send a message</button>
+                          <%= button_to 'Unfavorite', favorite_userlogin_path(id: u.favorited_id), class: "btn btn-success", method: :delete %></p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-    <% end %>
-  </div><!--Row-->
-</div><!--Panel-->
+      <% end %>
+    </div><!--Row-->
+  </div><!--Panel-->
+</div>
 
             
             <div class="modal fade" id="messageModal" tabindex="-1" role="dialog">

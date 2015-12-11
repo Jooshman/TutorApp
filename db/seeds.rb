@@ -6,6 +6,8 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 require 'httparty'
+require 'csv'
+
 responce = HTTParty.get("http://api.purdue.io/odata/Subjects")
 for r in responce["value"]
     s = "http://api.purdue.io/odata/Courses?$filter=Subject/Abbreviation eq '"
@@ -21,5 +23,13 @@ for r in responce["value"]
                 Course.create( "subject" => r["Abbreviation"], "course_Num" => v["Number"] )
             end
         end
+    end
+end
+
+if Skill.count.zero?
+    csv_text = File.read('SkillsList.csv')
+    csv = CSV.parse(csv_text, :headers => true)
+    csv.each do |row|
+      Skill.create!(row.to_hash)
     end
 end
