@@ -4,4 +4,8 @@ module MailboxHelper
     # using mailboxer
     mailbox.inbox(:unread => true).count(:id, :distinct => true)
   end
+
+  	def messages_count
+  		mailbox.inbox(:unread => true).count(:id, :distinct => true) + mailbox.inbox(:unread => false).count(:id, :distinct => true) 
+  	end
 end
