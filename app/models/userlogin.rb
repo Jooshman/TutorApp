@@ -1,6 +1,6 @@
 class Userlogin < ActiveRecord::Base
+  include Elasticsearch::Model
   # Include default devise modules. Others available are:
-
   # :confirmable, :lockable, :timeoutable and :omniauthable 
   searchkick word_start: [:email, :skills, :classes, :price, :gender, :first, :last]
 
