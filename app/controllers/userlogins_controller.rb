@@ -12,23 +12,23 @@ class UserloginsController < ApplicationController
   def search
     if params[:search].present? #|| params[:price].present? || params[:male].present? || params[:female].present?
       if (params[:sort] == "price" && params[:sort].present?)
-        @userlogins = Userlogin.search(params[:search], fields:[{email: :word_start}, {classes: :word_start}, {skills: :word_start}, {name: :word_start}, {last: :word_start}], where: {
+        @userlogins = Userlogin.search(params[:search], fields:[{email: :word_start}, {classes: :word_start}, {skills: :word_start}, {first: :word_start}, {last: :word_start}], where: {
           or: [
             [{gender: params["male"]}, {gender: params["female"]}]
           ]}, order:[{price: :asc}])
       elsif (params[:sort] == "rating" && params[:sort].present?)
-        @userlogins = Userlogin.search(params[:search], fields:[{email: :word_start}, {classes: :word_start}, {skills: :word_start}, {name: :word_start}, {last: :word_start}], where: {
+        @userlogins = Userlogin.search(params[:search], fields:[{email: :word_start}, {classes: :word_start}, {skills: :word_start}, {first: :word_start}, {last: :word_start}], where: {
           or: [
             [{gender: params["male"]}, {gender: params["female"]}]
           ]}, order:[{ratings: :desc}])
       elsif (params[:sort] == "age" && params[:sort].present?)
-        @userlogins = Userlogin.search(params[:search], fields:[{email: :word_start}, {classes: :word_start}, {skills: :word_start}, {name: :word_start}, {last: :word_start}], where: {
+        @userlogins = Userlogin.search(params[:search], fields:[{email: :word_start}, {classes: :word_start}, {skills: :word_start}, {first: :word_start}, {last: :word_start}], where: {
           or: [
             [{gender: params["male"]}, {gender: params["female"]}]
           ]
           },order:[{age: :asc}])
       else
-        @userlogins = Userlogin.search(params[:search], fields:[{email: :word_start}, {classes: :word_start}, {skills: :word_start}, {name: :word_start}, {last: :word_start}])
+        @userlogins = Userlogin.search(params[:search], fields:[{email: :word_start}, {classes: :word_start}, {skills: :word_start}, {first: :word_start}, {last: :word_start}])
       end    
           #where: {
           #price: {lte: params[:price]},
