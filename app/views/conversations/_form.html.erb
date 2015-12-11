@@ -1,15 +1,23 @@
 <head>
   <script>
   $(document).ready(function(){
-    $("#selector").select2();
+    $("#selector").select2({
+      dropdownAutoWidth : true
+    });
   });
   </script>
+
+  <style>
+  .select2{
+    width: 100%;
+  }
+  </style>
 </head>
 
 <%= form_for :conversation, url: :conversations, html: { class: "" } do |f| %>
     <div class="form-group">
       <%= f.label :recipients %>
-      <%= f.select(:recipients, Userlogin.all.collect {|p| [ p.email , p.id ] }, {}, { multiple: true , id: "selector"})%>
+      <%= f.select(:recipients, Userlogin.all.collect {|p| [ p.email , p.id ] }, {}, { multiple: true , id: "selector", :style => 'width: 100%'})%>
       <%#= f.select(:recipients, Userlogin.all.find(params[:id]), class: "chosen-select form-control" )%>
     </div>
     <div class="form-group">
@@ -21,6 +29,5 @@
       <%= f.text_area :body, class: 'form-control',placeholder: "Type your message here", rows: 4  %>
     </div>
 
-    <%= f.submit "Send Message", class: "btn btn-success" %>
-
+    <%= f.submit "Send Message", class: "btn btn-success", style: "width: 100%; overflow: scroll"%>
 <% end %>

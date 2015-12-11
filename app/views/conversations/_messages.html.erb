@@ -1,41 +1,66 @@
 <% @receipts.each do |receipt| %>
-    <% message = receipt.message %>
-    <div class="media">
-      <% if message.sender.email == current_userlogin.email %>
-      <div class="media-body">
-        <div class="push-right">
-          <h4 class="media-heading">
-           <!--<div class="media-left">
+  <% message = receipt.message %>
+  <div class="media">
+    <% if message.sender.email == current_userlogin.email %>
+      <div class="push-right">
+
+
+
+              <div class="media-body">
+                <h4 class="media-heading">
+
+                  <span style="text-transform:capitalize">
+                    <%= message.sender.first %> <%= message.sender.last %>
+                  </span><br>
+                  <span style="font-size: small">
+                    <%= message.sender.email %>
+                  </span><br>
+                  <small><b>Subject: </b>
+                    <%= message.subject %>
+                  </small><br>
+                  <small><b>Date: </b>
+                    <%=  message.created_at.strftime("%A, %b %d, %Y at %I:%M%p") %>
+                  </small>
+                
+                </h4>
+                <%= message.body %>
+              </div>
+        
+            <!--<div class="col-xs-2 col-sm-3 col-md-4 col-lg-4">&nbsp
+              user avators can go here 
               <a href="#">
-                <img align="right" class="media-object" src="http://placehold.it/64x64" alt="...">
+                <div class="" style="" align="right"> <img title="profile image" class="img-rounded img-responsive" style="min-height:20%" src="<%= message.sender.avatar.url(:thumb) %>"></div>
               </a>
             </div>-->
-            <%= message.sender.email %> <br>
-            <small><b>Subject: </b><%= message.subject %></small><br>
-            <small><b>Date: </b><%=  message.created_at.strftime("%A, %b %d, %Y at %I:%M%p") %></small>
-          </h4>
-          <%= message.body %>
-        </div>
+          
+
       </div>
 
-      <% else %>
+    <% else %>
 
       <div class="media-left">
         <!-- user avators can go here -->
         <a href="#">
           <div class="col-xs-2" style="" align="center"> <img title="profile image" class="img-rounded img-responsive" style="min-height:20%" src="<%= message.sender.avatar.url(:thumb) %>"></div>
-
         </a>
       </div>
       <div class="media-body">
         <h4 class="media-heading">
-          <%= message.sender.email %> <br>
-          <small><b>Subject: </b><%= message.subject %></small><br>
-          <small><b>Date: </b><%=  message.created_at.strftime("%A, %b %d, %Y at %I:%M%p") %></small>
+          <span style="text-transform:capitalize">
+            <%= message.sender.first %> <%= message.sender.last %>
+          </span><br>
+          <span style="font-size: small">
+            <%= message.sender.email %>
+          </span><br>
+          <small><b>Subject: </b>
+            <%= message.subject %>
+          </small><br>
+          <small><b>Date: </b>
+            <%=  message.created_at.strftime("%A, %b %d, %Y at %I:%M%p") %>
+          </small>
         </h4>
         <%= message.body %>
       </div>
-      <%end%>
-
-    </div>
+    <% end %>
+  </div>    
 <% end %>

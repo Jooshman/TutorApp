@@ -63,7 +63,7 @@
     #namediv{
         padding-top: 20px;
     }
-    .checkboxThree {
+    .is_Tutor_Slide {
       width: 120px;
       height: 40px;
       background: #333;
@@ -74,7 +74,7 @@
     /**
      * Create the text for the On position
      */
-    .checkboxThree:before {
+    .is_Tutor_Slide:before {
       content: 'Tutor';
       position: absolute;
       top: 12px;
@@ -86,7 +86,7 @@
     /**
      * Create the label for the off position
      */
-    .checkboxThree:after {
+    .is_Tutor_Slide:after {
       content: 'Student';
       position: absolute;
       top: 12px;
@@ -99,7 +99,7 @@
         /**
      * Create the pill to click
      */
-    .checkboxThree label {
+    .is_Tutor_Slide label {
       display: inline;
       width: 52px;
       height: 22px;
@@ -121,7 +121,7 @@
     /**
      * Create the checkbox event for the label
      */
-    .checkboxThree input[type=checkbox]:checked + label {
+    .is_Tutor_Slide input[type=checkbox]:checked + label {
       left: 60px;
       background: #42dc46;
     }
@@ -131,12 +131,17 @@
       bottom: 0;
       width: 100%;
     }
+    .popover-content {
+      font-size: 15px;
+  }
   </style>
+
+<% if current_userlogin.isTutor? %><!-- IS A TUTOR BEGIN -->
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
     <%= devise_error_messages! %>
 <div class="container target">
     <div class="row">
-        <div class="col-sm-6 col-xs-5">
+        <div class="col-sm-4 col-xs-5 col-lg-3 col-md-3">
             <div id="namediv">
               <%= f.label :First,"First Name:", class: "pull-left" %>
               <%= f.text_field :first, autocomplete: "off", class: "form-control name" %>
@@ -145,17 +150,17 @@
             </div>
             <section>
 
-              <h2 style="padding-top:5px;padding-left:13px;"><a data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Becoming a tutor allows you to edit your profile and be visible to students.">Tutor? <span class="glyphicon glyphicon-info-sign"></span></a></h2>
+              <h2 style="padding-top:5px;padding-left:13px;"><a data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Becoming a tutor allows you to really customize your profile and be visible to students. Let people know your skills, learned classes, prices, and more. You will be rateable, reviewable, and viewable by everyone.">Tutor? <span class="glyphicon glyphicon-info-sign"></span></a></h2>
               
-                <div class="checkboxThree">
-                  <%= f.check_box :isTutor, autocomplete: "off", style: "width:100%;", id: "checkboxThreeInput" %>
-                  <label for="checkboxThreeInput"></label>
+                <div class="is_Tutor_Slide">
+                  <%= f.check_box :isTutor, autocomplete: "off", style: "width:100%;", id: "is_Tutor_SlideInput" %>
+                  <label for="is_Tutor_SlideInput"></label>
                 </div>
             </section>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-4 col-xs-2 col-md-5 col-lg-5">
         </div> 
-        <div class="col-sm-4 col-xs-5">
+        <div class="col-sm-4 col-xs-5 col-md-4 col-lg-4">
           <img title="profile image" class="img-rounded img-responsive pull-left" src="<%= current_userlogin.avatar.url(:medium) %>">
           <br>
           <div>
@@ -229,7 +234,7 @@
                       </div>
                     </div>
                 </div>
-                <div class="col-lg-12">
+                <div class="col-sm-12">
                   <div class="panel panel-default" >
                     <div class="panel-body">
                     <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
@@ -254,3 +259,99 @@
           </div>
         </div>
       </div>
+<% else %><!-- IS A TUTOR END --> <!-- IS  NOT A TUTOR BEGIN -->
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+    <%= devise_error_messages! %>
+    <div class="container target"> <!-- CONTAINER BEGIN -->
+    <div class="row">
+        <div class="col-sm-4 col-xs-5 col-lg-3 col-md-3">
+            <div id="namediv">
+              <%= f.label :First,"First Name:", class: "pull-left" %>
+              <%= f.text_field :first, autocomplete: "off", class: "form-control name" %>
+              <%= f.label :Last, "Last Name:", class: "pull-left" %>
+              <%= f.text_field :last, autocomplete: "off", class: "form-control name" %>
+            </div>
+            <section>
+
+              <h2 style="padding-top:5px;padding-left:13px;"><a data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Becoming a tutor allows you to really customize your profile and be visible to students. Let people know your skills, learned classes, prices, and more. You will be rateable, reviewable, and viewable by everyone.">Tutor? <span class="glyphicon glyphicon-info-sign"></span></a></h2>
+              
+                <div class="is_Tutor_Slide">
+                  <%= f.check_box :isTutor, autocomplete: "off", style: "width:100%;", id: "is_Tutor_SlideInput" %>
+                  <label for="is_Tutor_SlideInput"></label>
+                </div>
+            </section>
+        </div>
+        <div class="col-sm-4 col-xs-2 col-md-5 col-lg-5">
+        </div> 
+        <div class="col-sm-4 col-xs-5 col-md-4 col-lg-4">
+          <img title="profile image" class="img-rounded img-responsive pull-left" src="<%= current_userlogin.avatar.url(:medium) %>">
+          <br>
+          <div>
+           <%= f.file_field :avatar %>
+          </div>
+        </div>
+
+    </div>
+      <br>
+    <div class="row"> <!-- ROW 2 BEGIN -->
+        <div class="col-sm-5 col-md-4 ">
+          <!--left col-->
+          <ul class="list-group">
+              <li class="list-group-item text-muted" contenteditable="false"><h3>Profile</h3></li>
+              <li class="list-group-item text-right"><span class="pull-left"><strong class="">Joined</strong></span><%= current_userlogin.created_at.strftime("%F") %></li>
+              <li class="list-group-item text-right"><span class="pull-left"><strong class="">Last seen</strong></span><%= current_userlogin.last_sign_in_at.strftime("%F") %></li>
+              <li class="list-group-item text-right"><span class="pull-left"><strong class="">Gender</strong></span>
+                <%= f.select(:gender, ["Male","Female","Other"], {}, { class: "invisible", multiple: false , id: "gender_selector"})%></li>
+              <li class="list-group-item"><span><p style="display:block;"><strong>Birthday</strong></p></span><%= f.date_select :birthday, { :start_year => 1920, :end_year => 2015 },{class: "birthday_selector invisible", prompt: { day: 'Select day', month: 'Select month', year: 'Select year' }}%></li>
+          </ul>
+
+          <div class="panel panel-default">
+              <div class="panel-heading"><h4>Email</h4></div>
+              <div class="panel-body">
+                  <%= f.email_field :email, autofocus: false, class: "form-control" %>
+              </div>
+          </div>
+        </div>
+
+        <!--/col-3-->
+        <div class="col-sm-7 col-md-8" style="" contenteditable="false">
+              <div class="row">
+                <div class="col-sm-12" contenteditable="false">
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><h3>Change password</h3></div>
+                      <div class="panel-body">
+                        <%= f.label :password, "New Password"%><br/>
+                        <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+                         <%= f.label :password_confirmation, "Retype New Password" %><br/>
+                        <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
+                      </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="panel panel-default" >
+                    <div class="panel-body">
+                    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+                    <%= f.password_field :current_password, autocomplete: "off", class: "form-control" %>
+                      <div class="actions">
+                        <%= f.submit "Update Profile", class: "btn btn-primary", style: "margin-top: 10px;" %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div> <!-- ROW 2 END -->
+      </div><!-- CONTAINER END -->
+      <% end %>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-5 col-md-4"></div>
+            <div class="col-sm-7 col-md-8" style="margin-bottom:10px;">
+            Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger" %>
+          </div>
+        </div>
+      </div>
+
+<% end %>  <!-- IS A TUTOR END -->
+  <!-- Name Email Picture Birthday Option for Tutor -->

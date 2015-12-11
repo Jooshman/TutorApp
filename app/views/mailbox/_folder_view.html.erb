@@ -5,27 +5,34 @@
       <div class="spacer"></div>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-4" style="margin-top: 35px">
       <div class="panel panel-default">
         <div class="panel-body">
           <%= render 'mailbox/folders' %>
         </div>
       </div>
-      <%= link_to "Compose", new_conversation_path, class: "btn btn-success" %>
+      <%= link_to "Compose", new_conversation_path, class: "btn btn-success", style: "margin-bottom: 5px" %>
     </div>
 
-    <div class="col-md-8">
+    <div class="col-md-8" style="margin-top: 35px">
       <div class="panel panel-default">
         <div class="panel-body">
+          <% if (mailbox.inbox.count == 0) && (active_page(:inbox) == "active") %>
+              You have no messages!
+          <% elsif (mailbox.sentbox.count == 0) && (active_page(:sent) == "active")%>
+              You have not sent any messages!
+          <% elsif (mailbox.trash.count == 0) && (active_page(:trash) == "active")%>
+              You have not trashed any messages!
+          <% else %>
           <% if is_conversation %>
               <%= render 'conversations/form' %>
           <% else %>
               <%= render partial: 'conversations/conversation', collection: messages %>
           <% end %>      
+          <% end %> 
         </div>
       </div>
     </div>
       <!-- we'll configure this to compose new conversations later -->
-
   </div>
 </div>
