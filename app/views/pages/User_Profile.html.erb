@@ -28,11 +28,12 @@
       display: inline;
     }
   </style>
+
 <% if @userprofile.isTutor? %>
 <div class="container target">
     <div class="row">
         <div class="col-sm-10">
-             <h1 style="text-transform:capitalize;" class=""><% if @userprofile.first.blank? && @userprofile.last.blank?%>Nicolas Cage<% end %><%= @userprofile.first %> <%= @userprofile.last %></h1>
+             <h1 style="text-transform:capitalize;" class=""><%= @userprofile.first %> <%= @userprofile.last %></h1>
              <button type="button" class="btn btn-info" data-toggle="modal" data-target="#messageModal">Send me a message</button>
             <% if current_userlogin.present? then %>
               <%- unless current_userlogin.favorite_userlogins.exists?(id: @userprofile.id) -%>
@@ -61,12 +62,10 @@
                 <li class="list-group-item text-right"><span class="pull-left"><strong class="">Age </strong></span><% if @userprofile.calculate_age(@userprofile.birthday) == 0%> Not given <% else %><%= @userprofile.calculate_age(@userprofile.birthday) %><% end %></li>
             </ul>
 
-            <% if @userprofile.isTutor? %>
              <div class="panel panel-default">
                <div class="panel-heading">Pricing</div>
                <div class="panel-body"><% if @userprofile.price.blank? %>Not provided<%else%>$<%= @userprofile.price %><%end%></div>
              </div>
-            <% end %>
 
             <div class="panel panel-default">
                 <div class="panel-heading">Email</div>
@@ -254,6 +253,7 @@
         <% end %>
       </div>
 
+      <!-- MODAL -->
       <div class="modal fade" id="messageModal" tabindex="-1" role="dialog">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -284,5 +284,5 @@
         </div><!-- /.modal-dialog -->
       </div><!-- /.modal -->
 <% else %>
-<%=redTo404 %>
+  <%=redTo404 %>
 <% end %>
