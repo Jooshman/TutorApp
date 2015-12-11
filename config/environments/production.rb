@@ -78,4 +78,6 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
   #required for devise gem, remember to change localhost to actual host name
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  Elasticsearch::Model.client = Elasticsearch::Client.new host: ENV['SEARCHBOX_URL']
 end
