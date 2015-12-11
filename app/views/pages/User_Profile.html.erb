@@ -32,25 +32,29 @@
 <% if @userprofile.isTutor? %>
 <div class="container target">
     <div class="row">
-        <div class="col-sm-10">
+        <div class="col-sm-6 col-xs-5">
              <h1 style="text-transform:capitalize;" class=""><%= @userprofile.first %> <%= @userprofile.last %></h1>
-             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#messageModal">Send me a message</button>
             <% if current_userlogin.present? then %>
-              <%- unless current_userlogin.favorite_userlogins.exists?(id: @userprofile.id) -%>
-              <%= button_to 'Favorite Tutor', favorite_userlogins_path(userlogin_id: @userprofile.id), class: "btn btn-success", method: :post %>
-              <%- else -%>
-              <%= button_to 'Unfavorite', favorite_userlogin_path(id: @userprofile.id), class: "btn btn-success", method: :delete %>
+              <% if @userprofile != current_userlogin then %>
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#messageModal">Send me a message</button>
+                <%- unless current_userlogin.favorite_userlogins.exists?(id: @userprofile.id) -%>
+                <%= button_to 'Favorite Tutor', favorite_userlogins_path(userlogin_id: @userprofile.id), class: "btn btn-success", method: :post %>
+                <%- else -%>
+                <%= button_to 'Unfavorite', favorite_userlogin_path(id: @userprofile.id), class: "btn btn-success", method: :delete %>
+                <%- end -%>
+              <% else %>
+                <a class="btn btn-info" href="/userlogins/edit" data-no-turbolink="true">Edit Profile</a>
               <%- end -%>
             <% end %>
         </div>
-
-        <div class="col-sm-2"><img title="profile image" class="img-rounded img-responsive pull-right" src="<%= @userprofile.avatar.url(:medium) %>">
+        <div class="col-sm-2 col-xs-2"></div>
+        <div class="col-sm-4 col-xs-5"><img title="profile image" class="img-rounded img-responsive pull-right" src="<%= @userprofile.avatar.url(:medium) %>">
         </div>
 
     </div>
     <br>
     <div class="row">
-        <div class="col-sm-3">
+        <div class="col-sm-4 col-md-4 ">
             <!--left col-->
             <ul class="list-group">
                 <li class="list-group-item text-muted" contenteditable="false" style="background-color:#F0F0F0; color: black">Profile</li>
@@ -157,7 +161,7 @@
         <% end %>
 
         <!--/col-3-->
-        <div class="col-sm-9" style="" contenteditable="false">
+        <div class="col-sm-8 col-md-8" style="" contenteditable="false">
             <div class="panel panel-default">
 
                 <div class="panel-heading">About Me!</div>
@@ -167,10 +171,10 @@
 
             <% if @userprofile.isTutor? %>
               <div class="row">
-                <div class="col-sm-6" style="" contenteditable="false">
+                <div class="col-sm-6" style="" contenteditable="false" style="height:100%;">
                     <div class="panel panel-default">
                         <div class="panel-heading">My Skills</div>
-                        <div class="panel-body"><% if @userprofile.skills.blank? %>I swear I have mad skills. If you'd like to know more, send me a message!<% end %>
+                        <div class="panel-body" style="width:100%;"><% if @userprofile.parse_database_tags(@userprofile.skills).count < 2 %>I swear I have mad skills. If you'd like to know more, send me a message!<% end %>
                         <% skilz = @userprofile.parse_database_tags(@userprofile.skills) %>
                         <% skilz.each do |s|%>
                           <% if !s.blank? %>
@@ -186,9 +190,9 @@
                 </div>
 
                 <div class="col-sm-6" style="" contenteditable="false">
-                    <div class="panel panel-default">
+                    <div class="panel panel-default" style="height:100%">
                         <div class="panel-heading">Classes I Know</div>
-                        <div class="panel-body"><% if @userprofile.classes.blank? %>School is for chumps. If you'd like to know more, send me a message!<% end %>
+                        <div class="panel-body" style="height:100%"><% if @userprofile.parse_database_tags(@userprofile.classes).count < 2 %>School is for chumps. If you'd like to know more, send me a message!<% end %>
                         <% course = @userprofile.parse_database_tags(@userprofile.classes) %>
                         <% course.each do |s|%>
                           <% if !s.blank? %>

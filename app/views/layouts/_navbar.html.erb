@@ -68,7 +68,7 @@ $(document).ready(function () {
           <% if userlogin_signed_in? %>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                <span class="glyphicon glyphicon-user"></span>Profile
+                <span class="glyphicon glyphicon-user"></span> <%= current_userlogin.first%> <%= current_userlogin.last %>
                 <span style="margin-left:5px;" class="badge"><%=unread_messages_count%></span>
                 <span class="caret"></span>
               </a>

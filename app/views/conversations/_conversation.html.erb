@@ -1,28 +1,45 @@
+<style>
+.no_under a:link {
+  text-decoration: none;
+}
+.no_under a:hover {
+  color: red;
+}
+</style>
 
 <div class="media">
   <div class="media-left">
     <a href="#">
+
       <div class="col-xs-2" style="" align="center"> <img title="profile image" class="img-rounded img-responsive" style="min-height:20%" src="<%= conversation.last_sender.avatar.url(:thumb) %>"></div>    </a>
   </div>
-  <div class="media-body">
-    <h4 class="media-heading">
-      <% s = conversation.participants.size %>
-      <% conversation.participants.each do |c| %>
-        <% if c.first? then %>
-          <%= c.first %> <%= c.last %> 
-        <% else %>
-          <%= c.email %> 
+  
+  <div class="no_under">
+  <%= link_to(conversation_path(conversation)) do %> 
+    <div class="media-body">
+      
+      <h4 class="media-heading">
+        <% s = conversation.participants.size %>
+        <% conversation.participants.each do |c| %>
+          <% if c.first? then %>
+            
+              <span style="text-transform: capitalize"><%= c.first %> <%= c.last %></span>
+              
+          <% else %>
+            <%= c.email %> 
+          <% end %>
+          <% if s > 1 then %>
+            <%= ", " %>
+          <% end %>
+          <% s = s - 1%>
         <% end %>
-        <% if s > 1 then %>
-          <%= ", " %>
-        <% end %>
-        <% s = s - 1%>
-      <% end %>
-      <br>
-      <small><b>Subject: </b><%= conversation.subject %></small><br>
-      <small><b>Date: </b><%=  conversation.messages.last.created_at.strftime("%A, %b %d, %Y at %I:%M%p") %></small>
-    </h4>
-    <%= truncate conversation.messages.last.body, length: 145 %>
-    <%= link_to "View", conversation_path(conversation)  %>
-  </div>
+        <br>
+        <small><b>Subject: </b><%= conversation.subject %></small><br>
+        <small><b>Date: </b><%=  conversation.messages.last.created_at.strftime("%A, %b %d, %Y at %I:%M%p") %></small>
+      </h4>
+      
+      <%= truncate conversation.messages.last.body, length: 148 %>
+    </div>
+  <% end %>
+</div>
 </div>
