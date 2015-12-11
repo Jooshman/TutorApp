@@ -25,10 +25,14 @@ class RegistrationsController < Devise::RegistrationsController
 	end
 
 	def after_update_path_for(resource)
-		if resource.isTutor? 
-      		"/pages/User_Profile/" + resource.id.to_s
-      	else
-      		"/pages/Home"
-      	end
-    end
+	  if resource.isTutor? 
+  		"/pages/User_Profile/" + resource.id.to_s
+  	else
+  		"/pages/Home"
+  	end
+  end
+
+  def after_sign_up_path_for(resource)
+    '/pages/tutorial'
+  end
 end
